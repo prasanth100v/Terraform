@@ -51,3 +51,5 @@ provisioner "file" {
 }
 ```
 
+## 📌 Best Practices
+✔ Use provisioners only for simple tasks    .✔ Keep scripts short
