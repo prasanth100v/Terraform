@@ -11,7 +11,28 @@ State file stores:
 6. Outputs
 ```
 ⚠️ It may also store sensitive data like passwords or tokens.
+### Where is the Terraform state file stored?
+Two options:
+```
+👉 Local backend (default)
+👉 Production uses remote backend
 
+remote backend allowing:
+      1. Team collaboration
+      2. State locking
+      3. Disaster recovery
+```
+### What happens if the state file is deleted?
+Terraform loses track of existing resources.
+```
+Effects:
+    1. terraform plan shows everything as new
+    2. Risk of duplicate resources
+    3. Manual recovery required
+Recovery options:
+    1. Restore from S3 versioning
+    2. terraform import
+```
 ## Store Terraform state remotely in AWS S3 (instead of local terraform.tfstate)
 ## 🧱 STEP 1: Create an S3 bucket (for Terraform state)
 Why?
