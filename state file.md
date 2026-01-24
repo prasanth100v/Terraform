@@ -76,6 +76,11 @@ AWS Secret Access Key: ********
 Region: us-east-1
 ```
 ## 🧱 STEP 3: Create Terraform backend configuration
+🔐 What is S3 Native State Locking?
+S3 Native State Locking is a Terraform 1.10+ feature that allows Terraform to lock the state file directly in Amazon S3, without using DynamoDB.
+> It uses Amazon S3 Conditional Writes to ensure only one Terraform operation can modify the state at a time.
+
+> Before Terraform 1.10: 👉 S3 backend required DynamoDB for locking 👉 Extra AWS service to manage 👉 Extra cost & IAM permissions
 Create a file called backend.tf
 ```
 terraform {
@@ -183,5 +188,14 @@ Only edit manually in emergency cases, and always:
 | `terraform state list -id`         | List IDs              | Shows resource IDs only                               | Quick ID reference            |
 | `terraform state show -json`       | JSON output           | Outputs resource in JSON format                       | Automation / scripting        |
 
-
+## 🆚 DynamoDB Locking vs S3 Native Locking
+| Feature           | DynamoDB Locking | S3 Native Locking |
+| ----------------- | ---------------- | ----------------- |
+| Terraform version | Any              | **1.10+ only**    |
+| Extra AWS service | Yes              | ❌ No              |
+| Cost              | DynamoDB cost    | No extra cost     |
+| Setup complexity  | Higher           | Simple            |
+| Lock storage      | DynamoDB item    | S3 lock file      |
+| Reliability       | Very high        | Very high         |
+| Recommended now   | Legacy setups    | ✅ Preferred       |
 
