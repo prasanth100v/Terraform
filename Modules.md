@@ -1,5 +1,6 @@
 # Terraform module
 A Terraform module is a collection of .tf files in a directory that are used together to create and manage infrastructure.
+
 ## types of Terraform modules
 ```
 1. Root module – main working directory
@@ -33,16 +34,33 @@ module "ec2" {
 ```
 ### 📁 Example structure:
 ```
-project/
-├── main.tf
+terraform-ec2-project/
+├── main.tf              # Root module
 ├── variables.tf
 ├── outputs.tf
+├── provider.tf
+├── terraform.tfvars
 └── modules/
     └── ec2/
-        ├── main.tf
+        ├── main.tf      # Child module
         ├── variables.tf
         └── outputs.tf
 ```
+```
+modules/
+└── ec2/
+    ├── main.tf
+    ├── variables.tf
+    ├── outputs.tf
+    ├── versions.tf       # Terraform & provider versions
+    ├── README.md         # documentation
+
+```
+> What each file does: ✅ main.tf → resources  ✅ variables.tf → inputs  ✅ outputs.tf → exposed values
+
+A Terraform module contains ***main.tf, variables.tf, and outputs.tf.***
+> Root module calls child modules via source. ♻️ Modules improve reusability, consistency, and maintainability.”
+
 > 🧠 Think of modules like: Functions in programming
 
 ## How do you get values from a module?
