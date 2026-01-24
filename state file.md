@@ -137,6 +137,7 @@ Prevents:
 2. State corruption
 ```
 # 🧱 Multi-environment structure (Best Practice)
+> Separate state files per environment
 ```
 s3://mycompany-terraform-state/
 ├── dev/terraform.tfstate
@@ -145,12 +146,29 @@ s3://mycompany-terraform-state/
 ```
 Each environment = separate state = safer deployments
 
+## Can we edit terraform.tfstate manually?
+> ❌ Not recommended
+```
+Reasons:
+   1. High risk of corruption
+   2. Hard to debug
+Only edit manually in emergency cases, and always:
+   1. ✔ Take backup
+   2. ✔ Validate after edit
+```
+### How do you secure the Terraform state file?
+```
+1. Store in remote backend
+2. Enable encryption
+3. Restrict IAM access
+4. Enable versioning
+5. Use KMS encryption
+6. Never commit to Git
+```
 
+> terraform plan → shows what will change
 
-
-
-
-
+> terraform State → stores what already exists
 
 
 
