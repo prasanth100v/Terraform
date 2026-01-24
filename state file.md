@@ -171,7 +171,17 @@ Only edit manually in emergency cases, and always:
 > terraform State → stores what already exists
 
 
-
+## 📌 Terraform State Commands – Explained (Table Format)
+| Command                            | Purpose               | What it Does                                          | When to Use                   |
+| ---------------------------------- | --------------------- | ----------------------------------------------------- | ----------------------------- |
+| `terraform state list`             | List resources        | Shows all resources tracked in the state file         | To see what Terraform manages |
+| `terraform state show <resource>`  | Show resource details | Displays attributes of a specific resource from state | Debugging / verification      |
+| `terraform state pull`             | Download state        | Outputs current remote state in JSON                  | Backup / inspection           |
+| `terraform state push`             | Upload state          | Pushes a local state file to backend                  | Disaster recovery             |
+| `terraform state mv`               | Move resource         | Renames or moves resources inside state               | Refactoring code              |
+| `terraform state rm`               | Remove resource       | Removes resource from state only                      | Stop Terraform control        |
+| `terraform state list -id`         | List IDs              | Shows resource IDs only                               | Quick ID reference            |
+| `terraform state show -json`       | JSON output           | Outputs resource in JSON format                       | Automation / scripting        |
 
 
 
