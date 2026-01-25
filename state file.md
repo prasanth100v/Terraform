@@ -1,6 +1,7 @@
 # Terraform state file
 The Terraform state file (terraform.tfstate) is a JSON file that stores the current state of infrastructure managed by Terraform.
-> Without the state file, Terraform: Cannot track existing resources
+> 👉 Terraform State is the brain of Terraform.
+Without the state file, Terraform: Cannot track existing resources
 State file stores:
 ```
 1. Resource IDs (EC2 ID, ALB ARN, etc.)
