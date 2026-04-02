@@ -155,9 +155,7 @@ After running `terraform apply`, Terraform:
  * 📌 Launch an EC2 instance in that subnet
  * 📌 Show VPC ID and EC2 public IP as output  
 
----
-
-## 📄 main.tf
+### 📄 main.tf
 
 ```hcl
 provider "aws" {
@@ -208,7 +206,7 @@ output "ec2_public_ip" {
  3. 🖥️ Launch EC2 → inside subnet
  4. 📤 Output → Show results
 
-## ▶️ How to Run It
+### ▶️ How to Run It
 1. 💾 Save this file as `main.tf`  
 2. 💻 Open terminal in that directory  
 3. ▶️ Run:
@@ -226,7 +224,7 @@ terraform apply
 
 ---
 
-# 📌 Summary
+## 📌 Summary
 
 - 🔌 Providers connect Terraform to cloud platforms.  
 - 🏗️ Resources create infrastructure.  
