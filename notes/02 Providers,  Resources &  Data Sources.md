@@ -222,6 +222,13 @@ terraform apply
    * ❌ Do NOT modify resources
    * ✅ Only read
 
+### Why are data sources important in AWS Terraform?
+  * 👉Avoid hard-coding values (AMI IDs, VPC IDs)
+  * 👉 Reuse existing AWS infrastructure
+
+### What happens if a data source resource does not exist in AWS?
+  * Terraform fails during plan or apply with an error saying the resource was not found.
+
 ---
 
 ## 📌 Summary
