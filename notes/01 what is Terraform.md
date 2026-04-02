@@ -6,7 +6,7 @@
    * Provision resources automatically ⚙️
    * Manage and update cloud infrastructure safely 🔄 📌 Uses HCL (HashiCorp Configuration Language) – (HCL is simple & human-readable Language).
 
-👉 Terraform helps you:
+### 👉 Why Terraform?
 | 🧩 Problem (Without Terraform) | 💡 Solution (With Terraform)           |
 | ------------------------------ | -------------------------------------- |
 | ❌ Manual setup                 | 🤖 Automation (Infrastructure as Code) |
