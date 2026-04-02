@@ -121,13 +121,13 @@ sudo ./aws/install
 
 2. ⚙️ Configure your AWS credentials:
 
-` aws configure ` 
+`aws configure` 
 
-You'll be prompted to enter:  
-• AWS Access Key ID  🔑
-• AWS Secret Access Key  🔐
-• Default region name 🌍 
-• Default output format  
+ You'll be prompted to enter:  
+  * AWS Access Key ID  🔑
+  * AWS Secret Access Key  🔐
+  * Default region name 🌍
+  * Default output format  
 
 ✅ Terraform will automatically reads these credentials. No need to specify them in your Terraform files. (Secure & No hardcoding)
 
