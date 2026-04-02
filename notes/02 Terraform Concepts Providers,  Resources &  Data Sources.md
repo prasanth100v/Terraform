@@ -198,7 +198,7 @@ output "ec2_public_ip" {
   value = aws_instance.my_instance.public_ip
 }
 ```
-### 🔗 Flow Explanation (Easy Way 🧠)
+### 🔗 Flow Explanation (Easy Way )
 👉 Step-by-step:
 
  1. 🔍 Data source → Get existing VPC
