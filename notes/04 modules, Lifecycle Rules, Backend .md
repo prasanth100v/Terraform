@@ -162,11 +162,11 @@ resource "aws_instance" "web" {
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "my-terraform-state-bucket"  
-    key            = "dev/terraform.tfstate"  
-    region         = "us-east-1"  
-    dynamodb_table = "terraform-locks"            # For state locking  
-    encrypt        = true  
+    bucket       = "mycompany-terraform-state"
+    key          = "dev/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 ```
