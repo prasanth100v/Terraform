@@ -11,7 +11,7 @@
 
 
 ## 📁 Module Structure:
-```
+```hcl
 modules/  
 ├── vpc/               # Module name (e.g., "vpc")  
 │   ├── main.tf        # Resources (VPC, subnets, etc.)  
@@ -89,7 +89,7 @@ module "eks" {
     * Databases 🗄️
     * Production resources 🚀
 
-```
+```hcl
 resource "aws_db_instance" "production" {
   allocated_storage = 100  
   engine           = "mysql"  
@@ -108,7 +108,7 @@ resource "aws_db_instance" "production" {
  * Ignores changes to specific arguments. Manual changes in AWS console Terraform won’t overwrite.
  * For Example : If someone manually updates a tag in the AWS console, Terraform will not try to overwrite it.
 
-```
+```hcl
 resource "aws_instance" "web" {
   lifecycle {
     create_before_destroy = true  
@@ -122,7 +122,7 @@ resource "aws_instance" "web" {
 ### 3. 🔄 create_before_destroy
  Tells Terraform to create a new resource before destroying the old one. It Prevents downtime during updates.
 
-```
+```hcl
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"  
   instance_type = "t3.micro"  
@@ -159,7 +159,7 @@ resource "aws_instance" "web" {
  * ☁️ Remote Backend (Best Practice ⭐) Store state in cloud (e.g., AWS S3)
 
 ## ☁️ Example: AWS S3 Backend
-```
+```hcl
 terraform {
   backend "s3" {
     bucket         = "my-terraform-state-bucket"  
