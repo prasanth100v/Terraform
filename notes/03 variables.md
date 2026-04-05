@@ -89,57 +89,60 @@ In Terraform, this file stores:
 ---
 
 # 📤 6. Outputs
-
-In Terraform, the output block is used to display useful information after you run terraform apply.  
-like IP addresses, resource IDs, S3 bucket nameSubnet IDetc.
-
----
+ * ✨ In Terraform, the output block is used to display useful information after you run terraform apply.
+ * like IP addresses, resource IDs, S3 bucket name and SubnetID etc.
+ * 👉 Outputs are stored in : `terraform.tfstate`
 
 ## ❓ Why do we use Outputs?
 - 👀 To see important values after resources are created  
 - 🔗 To pass values to other Terraform modules  
-- 🧪 To debug and verify values during development  
-
----
+- 🧪 To debug and verify values 
 
 ## 🧾 Syntax of Output Block
-
+```
 output "name" {
   value = <expression>
 }
-
----
+```
 
 ## 📄 Example:
-
+```
 output "instance_ip" {
   value = aws_instance.example.public_ip
 }
-
----
+```
 
 ## 📊 After running terraform apply, you will see:
-
+```
 Outputs:
 instance_public_ip = "3.85.100.22"
+```
 
 ---
 
 ## 🔐 Example : Output with sensitive = true  
 If your output is a password or secret:
-
+```
 output "db_password" {
   value     = "mysecretpassword"
   sensitive = true
 }
-
-🔒 Terraform hides the output value on screen.
+```
+🔒 Terraform hides the output value on terminal screen.
 
 ---
 
 ## 🎤 How to Explain in Interview (Sample Answer):
+ 
+ * In Terraform, I use the output block to display important information after provisioning infrastructure.
+ * ✨ For example, when I provision an EC2 instance, its public IP address is automatically displayed in the output, enabling immediate SSH access.
+ * Outputs are also useful when working with modules — I can expose values from one module and reuse them in another module or resource block.
+ * If the output is sensitive, like a **password**, I mark it with `sensitive = true` to prevent it from being displayed.
 
-In Terraform, I use the output block to display important information after provisioning infrastructure.  
-For example, when I launch an EC2 instance, I output its public IP so I can quickly SSH into it. Outputs are also useful when working with modules — I can expose values from one module and use them in another. If the output is sensitive, like a password, I mark it with sensitive = true to prevent it from being displayed.
+💡 **Bonus Tip** : Outputs are stored in the `Terraform state file` so that they can be reused in automation.
 
-💡 Bonus Tip: Outputs are stored in the Terraform state file so that they can be reused or referenced in automation.
+### 🏁 Final Summary
+
+ * ✨ Variables →  Make code flexible
+ * ✨ State     →  Tracks infrastructure (source of truth)
+ * ✨ Outputs   →  Show useful results
