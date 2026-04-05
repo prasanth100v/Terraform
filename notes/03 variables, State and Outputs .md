@@ -22,14 +22,14 @@ Variables  ✅ → Dynamic values
 - ⚡ Easy updates without changing code to make changes easier and reduce human errors.  
 
 ## 📄 Example: Input Variable
-```
+```hcl
 variable "instance_type" {
   default = "t2.micro"                     # input variable
 }
 ```
 
 ## 🔧 Usage in Resource :
-```
+```hcl
 resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = var.instance_type
@@ -37,7 +37,7 @@ resource "aws_instance" "example" {
 ```
 
 ## 💡 Real DevOps Practice  (Use .tfvars files) :
-```
+```hcl
 # dev.tfvars
 instance_type = "t2.micro"
 
@@ -99,21 +99,21 @@ In Terraform, this file stores:
 - 🧪 To debug and verify values 
 
 ## 🧾 Syntax of Output Block
-```
+```hcl
 output "name" {
   value = <expression>
 }
 ```
 
 ## 📄 Example:
-```
+```hcl
 output "instance_ip" {
   value = aws_instance.example.public_ip
 }
 ```
 
 ## 📊 After running terraform apply, you will see:
-```
+```hcl
 Outputs:
 instance_public_ip = "3.85.100.22"
 ```
@@ -122,7 +122,7 @@ instance_public_ip = "3.85.100.22"
 
 ## 🔐 Example : Output with sensitive = true  
 If your output is a password or secret:
-```
+```hcl
 output "db_password" {
   value     = "mysecretpassword"
   sensitive = true
