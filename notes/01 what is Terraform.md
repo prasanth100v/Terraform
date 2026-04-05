@@ -134,7 +134,7 @@ sudo ./aws/install
 ---
 
 ## ⚠️ Method 2: Directly in Terraform Configuration (Not Recommended for Production)
-```
+```hcl
 provider "aws" {  
   region     = "us-east-1"  
   access_key = "your-access-key"  
