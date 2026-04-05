@@ -129,7 +129,7 @@ resource "aws_instance" "web" {
 
   lifecycle {
     create_before_destroy = true        # New instance spins up BEFORE old is destroyed  
-    # When to use: Load balancers, databases, stateful services  
+                                        # When to use: Load balancers, databases, stateful services  
   }
 }
 ```
