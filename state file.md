@@ -176,6 +176,14 @@ Only edit manually in emergency cases, and always:
 
 > terraform State → stores what already exists
 
+### 🔄 S3 Locking vs DynamoDB Locking (Terraform State)
+| 🧩 Feature          | 📦 S3 Native Locking | 🗄️ DynamoDB Locking   |
+| ------------------- | -------------------- | ---------------------- |
+| ⚙️ Setup Complexity | ✅ Simple             | ❌ Requires extra setup |
+| ➕ Extra Service     | ❌ No                 | ✅ Needs DynamoDB table |
+| 🛡️ Reliability     | ⚠️ Good              | 🔥 Very strong         |
+| 🎯 Recommended For  | 👥 Small teams       | 🏢 Large teams         |
+
 
 ## 📌 Terraform State Commands – Explained (Table Format)
 | Command                            | Purpose               | What it Does                                          | When to Use                   |
