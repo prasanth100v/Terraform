@@ -64,6 +64,41 @@ In Terraform, this file stores:
 • 🖥️ By default: Locally in your project folder (as `terraform.tfstate`)  
 • ☁️ In teams: It’s best to store it remotely (e.g., in `S3 with locking`) using a backend.  (Best Practice ⭐)
 
+### Example of Terraform EC2 State File (`terraform.tfstate`)
+```JSON
+{
+  "version": 4,
+  "terraform_version": "1.6.0",
+  "serial": 1,
+  "lineage": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "my_ec2",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "ami": "ami-0f58b397bc5c1f2e8",
+            "instance_type": "t2.micro",
+            "availability_zone": "ap-south-1a",
+            "id": "i-0abcd1234efgh5678",
+            "public_ip": "13.232.xxx.xxx",
+            "private_ip": "172.31.xxx.xxx",
+            "tags": {
+              "Name": "MyEC2Instance"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## 🔐 Security Tip:
  If the state file contains sensitive data (like passwords or secrets), secure it:  
    * 🛡️ Use `sensitive = true` in variable definitions.
