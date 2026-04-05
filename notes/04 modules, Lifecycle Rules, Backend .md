@@ -3,7 +3,7 @@
  * ✨ A module is a collection of `.tf` files that performs a specific task (like creating a VPC or EC2) and can be reused in different places.
  * 💡 Module is a reusable package. Instead of writing the same code again and again you can write once and reuse it many times. 
 
-### 🔹 In Simple Words:
+### 📌 In Simple Words:
 - 🔁 A Module in Terraform is like a function in programming. 
 - 🎯 You can call it with different values.  
 - ⏱️ It saves time and avoids repeating the same code.
