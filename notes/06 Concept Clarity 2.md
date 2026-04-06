@@ -20,7 +20,8 @@ resource "aws_instance" "web" {
 }
 ```
 
-## ⚠️ Explicit Dependency (depends_on) : you can also use `depends_on`. 👉 when Terraform cannot detect dependency
+## ⚠️ Explicit Dependency (depends_on) : 
+ You can also use `depends_on`. 👉 when Terraform cannot detect dependency
 ```
 resource "aws_instance" "app" {
   depends_on = [aws_db_instance.mydb]         
@@ -73,44 +74,76 @@ resource "aws_instance" "app" {
 
  * 🚫 Terraform Limitation : ❌ Terraform doesn't support automatic rollback.
  * ✅ Solution
-    * 🧾 Use Git version control
-    * 🔙 Revert .tf files
+    * 🧾 Use Git version-controlled `.tf` files.
+    * 🔙 Revert `.tf` files to the previous version
     * ▶️ Run terraform apply
 
- You can:  
-- 🧾 Use version-controlled .tf files (Git).  
-- 🔙 Revert the .tf code to the previous version and run terraform apply.  
+### 🗣️ Interview Answer :
+  * Terraform doesn't support automatic rollback, so I rely on version control.
+  * I revert the configuration to a previous version and reapply it to restore infrastructure.
 
 ---
 
-## 🔐 How do you avoid exposing secrets in Terraform logs or state files?
-
-- 🛡️ Mark variables as sensitive.  
-- 🔑 Use secrets managers (e.g., AWS Secrets Manager, HashiCorp Vault).  
-- 🔒 Encrypt state file (enabled by default in S3 backend).  
-
-variable "db_password" {
-  type      = string  
-  sensitive = true  
-}
+## 🌐 What is the Terraform Registry?
+  * Terraform Registry is a public repository where I can find reusable modules and providers.
+  * It helps speed up development by using pre-built infrastructure components.
+  * A public repository of:  
+     * 📦 Modules (reusable Terraform code)
+     * 🔌 Providers (to interact with different platforms)  
+  * 🔗 URL: https://registry.terraform.io  
 
 ---
 
-# 🌐 What is the Terraform Registry?
-
-A public repository of:  
-- 📦 Modules (reusable Terraform code)  
-- 🔌 Providers (to interact with different platforms)  
-
-🔗 URL: https://registry.terraform.io  
-
----
-
-# ❌ What happens if the Terraform state file is deleted?
+## ❌ What happens if the Terraform state file is deleted?
 
 - ⚠️ Terraform loses track of resources.  
 - 🔁 It will recreate resources on next apply unless a new import or recovery is done.  
-- 💡 Solution: Use remote backend with versioning (e.g., S3 + DynamoDB for locking).  
+- 💡 Solution: Use remote backend with versioning (e.g.,AWS S3 + locking).
+- Terraform detects changes by comparing the `desired configuration` with the `current state file`.
+- It then generates an `execution plan` showing what needs to be created, updated, or destroyed."
+
+---
+
+# 🔐 Remote Backend & Locking
+## 🚀 What is Remote Backend?
+
+ * 👉 Stores state file remotely (e.g.,AWS S3)
+ * 🔒 State Locking Prevents : Multiple users running `apply` at same time
+
+### ✅ Terraform S3 Backend with Native Locking :
+```
+terraform {
+  backend "s3" {
+    bucket       = "my-tf-state"
+    key          = "prod/terraform.tfstate"
+    region       = "us-east-1"
+
+    use_lockfile = true                    # ✅ Enables S3 native locking  # S3 native locking is supported in newer Terraform versions.
+    encrypt      = true
+  }
+}
+```
+
+### 🗣️ Interview Answer
+  * Remote backends store Terraform state in a shared location like AWS S3, and using S3 native locking
+  * Ensures that only one person can make changes at a time, preventing conflicts.
+
+## 🏁 Final Summary
+
+ * ✨ Dependencies → Auto (or `depends_on`)
+ * ✨ State → Critical for tracking
+ * ✨ Modules → Organize large projects
+ * ✨ Security → Protect secrets
+ * ✨ Backend → Enable collaboration
+
+### 🧠 One-Line Memory Trick
+| 🧩 Concept      | 💡 Meaning                                     |
+| --------------- | ---------------------------------------------- |
+| 🔗 Dependencies | 📊 Order of resource creation                  |
+| 🧠 State        | 💾 Memory of infrastructure                    |
+| ☁️ Backend      | 🔒 Shared & remote state storage (team safety) |
+| 🔐 Secrets      | 🛡️ Always protect sensitive data              |
+
 
 ---
 
