@@ -2,12 +2,12 @@
 ## How do you handle dependencies when one resource must wait for another?
 
  * Terraform automatically manages dependencies using resource references.
- * ✨ Terraform uses a built-in dependency graph (`Implicit Dependency`)
- * If needed, I use `depends_on` to define dependencies when they are not automatically detected.
- * ⚠️ Use Explicit Dependency (`depends_on`) : when Terraform cannot detect dependency
+ * ✨ Terraform uses a built-in dependency graph to determine the correct order of execution. (`Implicit Dependency`)
+ * If required, I use `depends_on` to define dependencies when they are not automatically detected.
+ * ⚠️ Use Explicit Dependency (`depends_on`) : when Terraform cannot detect dependency.
 
 ##  📄 Example (Implicit Dependency)
-```
+```hcl
 resource "aws_security_group" "example" {
   name = "my-sg"
 }
@@ -22,7 +22,7 @@ resource "aws_instance" "web" {
 
 ## ⚠️ Explicit Dependency (depends_on) : 
  You can also use `depends_on`. 👉 when Terraform cannot detect dependency
-```
+```hcl
 resource "aws_instance" "app" {
   depends_on = [aws_db_instance.mydb]         
 }
@@ -45,7 +45,7 @@ resource "aws_instance" "app" {
 
 ## 🏗️ You want to split Terraform code for a large project. How do you structure it?
 ### 📁 Use modules and separate directories:
-```
+```hcl
 /terraform
  ├── modules/
  │   ├── vpc/
@@ -111,7 +111,7 @@ resource "aws_instance" "app" {
  * 🔒 State Locking Prevents : Multiple users running `apply` at same time
 
 ### ✅ Terraform S3 Backend with Native Locking :
-```
+```hcl
 terraform {
   backend "s3" {
     bucket       = "my-tf-state"
@@ -127,6 +127,35 @@ terraform {
 ### 🗣️ Interview Answer
   * Remote backends store Terraform state in a shared location like AWS S3, and using S3 native locking
   * Ensures that only one person can make changes at a time, preventing conflicts.
+
+---
+
+# ✅ What are some best practices in Terraform?
+## 🚀 Key Best Practices
+  * ☁️ Use remote state backend.
+     * 👉 Store state file in cloud (like AWS S3) instead of locally
+     * ✔️ Enables team collaboration & Prevents state loss and Improves security
+  
+  * 🔁 Use modules for reusable code.
+     * 👉 Break infrastructure into reusable components : ✔️ Easier maintenance ✔️ Clean structure 
+  
+  * 🔐 Store secrets securely (❌ Never hardcode secrets in code).
+     * ✔️ Use: Environment variables & Secret managers and Encrypted backends
+
+---
+
+# 🔍 How does Terraform detect changes in infrastructure?
+## 🚀 How It Works
+ * Terraform follows a 3-step comparison process:
+     * 1️⃣ Desired State      👉 Defined in `.tf` files
+     * 2️⃣ Current State      👉 Stored in : `terraform.tfstate`
+     * 3️⃣ Comparison (Diff)  👉 Terraform compares : `Desired State (.tf)  vs  Current State (.tfstate)`
+
+ * 🔄 Compares `.tf` configuration with `.tfstate`
+ * ⚙️ Runs terraform refresh internally during `plan/apply `
+ * 📊 It generates an execution plan showing what needs to be `created`, `updated`, or `destroyed`.  
+
+---
 
 ## 🏁 Final Summary
 
@@ -144,54 +173,3 @@ terraform {
 | ☁️ Backend      | 🔒 Shared & remote state storage (team safety) |
 | 🔐 Secrets      | 🛡️ Always protect sensitive data              |
 
-
----
-
-# ✅ What are some best practices in Terraform?
-
-- ☁️ Use remote state backend.  
-- 🔁 Use modules for reusable code.  
-- 🔐 Store secrets securely (not in code).  
-
----
-
-# 🔍 How does Terraform detect changes in infrastructure?
-
-- 🔄 Compares .tf configuration with .tfstate  
-- ⚙️ Runs terraform refresh internally during plan/apply  
-- 📊 Shows a diff of what will change  
-
----
-
-# 🔗 How does Terraform handle dependency management between resources?
-
-Terraform uses a built-in dependency graph. It automatically detects dependencies based on resource references (e.g., using aws_security_group.example.id).
-
-Example:
-
-resource "aws_security_group" "example" {
-  name = "my-sg"
-}
-
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"  
-  instance_type = "t2.micro"  
-  vpc_security_group_ids = [aws_security_group.example.id]   # Dependency  
-}
-
----
-
-# 🔐 Explain Terraform remote backends and locking
-
-Remote backends (e.g., AWS S3) store the state file remotely. Locking (using DynamoDB) ensures that only one person can run changes at a time. Locking prevents concurrent apply conflicts.
-
-Example config:
-
-terraform {
-  backend "s3" {
-    bucket         = "my-tf-state"  
-    key            = "prod/terraform.tfstate"  
-    region         = "us-east-1"  
-    dynamodb_table = "terraform-lock"  
-  }
-}
