@@ -44,7 +44,7 @@ resource "aws_s3_bucket" "buckets" {
  Use variables and terraform.tfvars files for each environment.
 
 ### 📦 module call:
-```
+```hcl
 module "ec2" {
   source        = "./modules/ec2"
   instance_type = var.instance_type
@@ -52,12 +52,12 @@ module "ec2" {
 ```
 
 ### 📄 dev.tfvars:
-```
+```hcl
 instance_type = "t2.micro"
 ```
 
 ### 📄 prod.tfvars:
-```
+```hcl
 instance_type = "t3.large"
 ```
 
@@ -78,13 +78,13 @@ instance_type = "t3.large"
 Use output in one module and input in another.
 
 📦 Module A:
-```
+```hcl
 output "subnet_id" {
   value = aws_subnet.main.id
 }
 ```
 📦 Module B:
-```
+```hcl
 module "vpc" {
   source = "./vpc"
 }
@@ -110,7 +110,7 @@ module "ec2" {
 💡 You can define multiple resources in `.tf files` or use `modules` for better structure for large setups.  
 
 ### 📌 Example: Create EC2 + S3 in one file:
-```
+```hcl
 resource "aws_instance" "ec2" {                       # AWS EC2
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
