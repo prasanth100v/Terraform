@@ -1,8 +1,8 @@
-# 🌐 How do you assign a public IP to an EC2 instance using Terraform?
+## 🌐 How do you assign a public IP to an EC2 instance using Terraform?
 
 Set `associate_public_ip_address = true` inside the network interface.
 
-## 📄 Example:
+### 📄 Example:
 ```
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"
@@ -19,11 +19,11 @@ resource "aws_instance" "web" {
 
 ---
 
-# 🗄️ How do you create an RDS MySQL database using Terraform?
+## 🗄️ How do you create an RDS MySQL database using Terraform?
 
 Use `aws_db_instance`.
 
-## 📄 Example:
+### 📄 Example:
 ```
 resource "aws_db_instance" "mydb" {
   allocated_storage    = 20
@@ -38,7 +38,7 @@ resource "aws_db_instance" "mydb" {
 
 ---
 
-# ☁️ Common AWS Services Managed with Terraform
+## ☁️ Common AWS Services Managed with Terraform
 
 - 🖥️ EC2 – virtual machines  
 - 📦 S3 – object storage  
@@ -51,7 +51,7 @@ resource "aws_db_instance" "mydb" {
 
 ---
 
-# 🚀 How do you launch multiple EC2 instances at once using Terraform?
+## 🚀 How do you launch multiple EC2 instances at once using Terraform?
 
 Use `count`.
 
@@ -66,7 +66,7 @@ resource "aws_instance" "web" {
 
 ---
 
-# ⚖️ How do you provision a Load Balancer using Terraform?
+## ⚖️ How do you provision a Load Balancer using Terraform?
 
 Use `aws_lb`, `aws_lb_target_group`, and `aws_lb_listener`.
 
@@ -114,7 +114,7 @@ resource "aws_instance" "web" {
 
 ---
 
-# 🎯 Bonus: Tips for Answering Terraform Questions in Interviews
+## 🎯 Bonus: Tips for Answering Terraform Questions in Interviews
 
 - 💬 Mention real-world usage (e.g., "In my EKS project, I used remote state in `AWS S3` with `native S3 locking`..")  
 - 🧠 Explain why you chose `modules`, `backends`, or `certain strategies`.  
