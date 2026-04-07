@@ -131,5 +131,5 @@ resource "aws_s3_bucket" "bucket" {                   # AWS S3
 | 🔁 Use Modules                  | ♻️ Reuse code for VPC, EC2, etc.                               |
 | 📁 Environment Variables        | 🌍 Separate configs per env (dev, prod)                       |
 | 🔐 Secrets Management           | 🛡️ Store secrets in AWS Secrets Manager                       |
-| 📊 Plan Before Apply            | 🔍 Always run `terraform plan` before apply to verify changes  |
+| 📊 Plan Before Apply            | 🔍 Always run `terraform plan` before apply  (verify changes) |
 
