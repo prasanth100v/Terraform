@@ -13,8 +13,8 @@ terraform plan -out=tfplan
 terraform show tfplan
 terraform apply tfplan
 ```
-  * I use `terraform plan -out` to generate a reusable execution plan that can be `reviewed and approved` before applying,
-  * Especially in production environments and CI/CD pipelines.
+ * I use `terraform plan -out` to generate a reusable execution plan that can be `reviewed and approved` before applying,
+ * Especially in production environments and CI/CD pipelines.
 
 
    * 💬 At my last role, we reduced provisioning time from `2 days to 15 minutes` by Terraforming our base infrastructure.
