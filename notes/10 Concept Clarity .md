@@ -54,9 +54,9 @@ lifecycle {
  - 🔁 GitOps workflow: everything (`infra + app`) is defined in Git and applied automatically.  
 
 ## 🎤 Real Interview-Style Answer:
-  * In our GitOps workflow, we use Terraform to provision infrastructure like `EKS, subnets, IAM roles`, and `OIDC setup for IRSA`.
-  * Once Terraform completes, our Argo CD instance (`deployed in EKS`) continuously `syncs` Kubernetes manifests from a `Git repo` to deploy our microservices.
-  * This clean separation helps us manage `infra` and `apps` independently.
+  * 🧩 In our GitOps workflow, we use Terraform to provision infrastructure like `EKS, subnets, IAM roles`, and `OIDC setup for IRSA`.
+  * 🧩 Once Terraform completes, our Argo CD instance (`deployed in EKS`) continuously `syncs` Kubernetes manifests from a `Git repo` to deploy our microservices.
+  * 🧩 This clean separation helps us manage `infra` and `apps` independently.
   * 🗣️ Interview Answer :  We used `Terraform for infrastructure provisioning` and `Argo CD for Kubernetes deployments`, both driven by `Git in a GitOps model`.
 
 
@@ -77,61 +77,57 @@ lifecycle {
 
 ## 🧪 Your EC2 instance is not reachable after Terraform deployment. What are your debugging steps?
 
-I check if the subnet is public and associated with the correct route table. Then I verify that the instance has a public IP, and the security group allows inbound access (e.g., port 22 for SSH).  
-I also check if the NACL or IAM role is causing a block.
+ * 🌐 I check if the subnet is `public` and associated with the correct `route table`.
+ * 📡 Then I verify that the instance has a `public IP`, and the security group allows `inbound access` (e.g., port `22` for SSH).
+ * I also check if the `NACL` or `IAM role` is causing a block.
 
 ---
 
-# ✅ What are some best practices you follow in Terraform?
+## ✅ What are some best practices you follow in Terraform?
 
 Some key practices I follow:  
-- 🔐 Use remote state with locking  
-- 📦 Split code into reusable modules  
-- 🧹 Use terraform fmt, validate, and tflint  
-- 🧾 Use variable types, validation, and descriptions  
-- 🚫 Avoid hardcoding values; prefer variables and tfvars  
-- 📊 Always review terraform plan before apply  
+ - 🔐 Use `remote state` with `locking `
+ - 📦 Split code into `reusable modules`  
+ - 🧹 Use terraform `fmt`, `validate`, and `tflint`
+ - 🧾 Use variable types, validation, and descriptions  
+ - 🚫 Avoid hardcoding values; prefer `variables` and tfvars  
+ - 📊 Always review `terraform plan` before apply  
+
+### 🎯 Bonus Tip for Interviews:
+ * Speak with clarity like:  
+   * In my last project, I managed multiple environments using `Terraform Workspaces` and separate `tfvars` files.
+   * I created reusable `modules`, set up `remote state`, and integrated Terraform with `GitHub Actions` for automation and safety.
 
 ---
 
-# 🎯 Bonus Tip for Interviews:
+## 🔒 terraform.lock.hcl – Explained Clearly
 
-Speak with clarity like:  
-“In my last project, I managed multiple environments using Terraform Workspaces and separate tfvars files. I created reusable modules, set up remote state, and integrated Terraform with GitHub Actions for automation and safety.”
+ * The `terraform.lock.hcl` file is automatically created by Terraform to lock `provider versions` used in your project.
+ * Lock provider versions - Ensures consistent provider versions across teams, avoiding issues due to `version mismatches`.
+ * 📌 It’s created in your Terraform root folder after running: `terraform init `
 
----
-
-# 🔒 terraform.lock.hcl – Explained Clearly
-
-The terraform.lock.hcl file is automatically created by Terraform to lock provider versions used in your project. Lock provider versions - Ensures consistent provider versions across teams, avoiding issues due to version mismatches.
-
-📌 It’s created in your Terraform root folder after running: terraform init  
-
-## 📄 Example Content of terraform.lock.hcl:
-
+### 📄 Example Content of `terraform.lock.hcl` :
+```
 provider "registry.terraform.io/hashicorp/aws" {
   version     = "5.35.0"  
   constraints = ">= 5.0.0"  
-  hashes = [
-    "h1:abcdefg...",
-    "h1:ijklmnop..."
-  ]
 }
+```
 
-- 🔢 version        : exact version used.  
-- 📏 constraints    : what versions are allowed (if defined in .tf).  
-- 🔐 hashes         : used to verify integrity of the provider plugin.  
+  - 🔢 version        : exact version used.  
+  - 📏 constraints    : what versions are allowed (if defined in .tf).  
 
----
-
-## 🔄 When is it updated?
-
-- 🔁 After terraform init, if providers change.  
-- ⬆️ If you run terraform init -upgrade, it upgrades providers and updates the lock file.  
-
----
 
 ## 🎤 Interview-Style Answer Example:
 
-terraform.lock.hcl ensures everyone on the team uses the same provider versions.  
-It’s automatically generated during terraform init and contains cryptographic hashes to verify provider integrity.
+ * terraform.lock.hcl ensures everyone on the `team` uses the `same provider versions`.
+ * It’s automatically generated during `terraform init`
+
+
+### 🏁 Final Summary
+
+ * ✨ Import → Manage existing infra
+ * ✨ Apply → Executes plan safely
+ * ✨ IRSA → Secure pod access
+ * ✨ GitOps → Git-driven infra + apps
+ * ✨ Lock file → Version consistency
