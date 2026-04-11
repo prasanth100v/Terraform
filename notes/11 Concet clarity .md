@@ -52,27 +52,15 @@
 
 # 🔐 How do you manage secrets in Terraform securely?
 
-  * To manage secrets securely in Terraform, I follow best practices to avoid exposing sensitive data like `passwords`, `API keys`, or `credentials`.
-  * Some common methods I use include:"
+To manage secrets securely in Terraform, I follow best practices to avoid exposing sensitive data like `passwords`, `API keys`, or `credentials`.
 
-### 🌍 Using environment variables
-   I avoid hardcoding secrets in `.tf files`. Instead, I set them using environment variables like:  
-```Bash
-export AWS_ACCESS_KEY_ID=xxxx  
-export AWS_SECRET_ACCESS_KEY=xxxx  
-```
-
-### 📁 Using .tfvars files with .gitignore
-   I store secrets in separate `.tfvars` files and make sure they are not committed to Git by adding them to `.gitignore`.
-
-### 🏦 Using Terraform Cloud or Vault
-   For better security, I use tools like `HashiCorp Vault` to store and dynamically fetch secrets.
-
-### 🚫 Avoid printing secrets in logs
-   I make sure to `mark sensitive` variables with `sensitive = true` to prevent them from showing in `terraform plan` or `apply` outputs.
-
-### ☁️ Remote state encryption
-   When using remote backends (like` S3`), I enable `encryption` at rest and bucket policies to restrict IAM access.
+| 🏷️ Best Pracices                       | 💡 Description                                                                                                                                                                            |
+| --------------------------------- ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🌍 Using environment variables         | I avoid hardcoding secrets in `.tf files`. Instead, I set them using environment variables like: <br><br>`bash<br>export AWS_ACCESS_KEY_ID=xxxx<br>export AWS_SECRET_ACCESS_KEY=xxxx<br>` |
+| 📁 Using .tfvars files with .gitignore | I store secrets in separate `.tfvars` files and make sure they are not committed to Git by adding them to `.gitignore`.                                                                   |
+| 🏦 Using Terraform Cloud or Vault      | For better security, I use tools like `HashiCorp Vault` to store and dynamically fetch secrets.                                                                                           |
+| 🚫 Avoid printing secrets in logs      | I make sure to `mark sensitive` variables with `sensitive = true` to prevent them from showing in `terraform plan` or `apply` outputs.                                                    |
+| ☁️ Remote state encryption             | When using remote backends (like `S3`), I enable `encryption` at rest and bucket policies to restrict IAM access.                                                                         |
 
 
 ## 🎯 Interview-Style Answer:
