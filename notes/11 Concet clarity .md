@@ -54,13 +54,14 @@
 
 To manage secrets securely in Terraform, I follow best practices to avoid exposing sensitive data like `passwords`, `API keys`, or `credentials`.
 
-| 🏷️ Best Pracices                       | 💡 Description                                                                                                                                                                            |
-| --------------------------------- ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🌍 Using environment variables         | I avoid hardcoding secrets in `.tf files`. Instead, I set them using environment variables like: <br><br>`bash<br>export AWS_ACCESS_KEY_ID=xxxx<br>export AWS_SECRET_ACCESS_KEY=xxxx<br>` |
-| 📁 Using .tfvars files with .gitignore | I store secrets in separate `.tfvars` files and make sure they are not committed to Git by adding them to `.gitignore`.                                                                   |
-| 🏦 Using Terraform Cloud or Vault      | For better security, I use tools like `HashiCorp Vault` to store and dynamically fetch secrets.                                                                                           |
-| 🚫 Avoid printing secrets in logs      | I make sure to `mark sensitive` variables with `sensitive = true` to prevent them from showing in `terraform plan` or `apply` outputs.                                                    |
-| ☁️ Remote state encryption             | When using remote backends (like `S3`), I enable `encryption` at rest and bucket policies to restrict IAM access.                                                                         |
+### 🔐 Terraform Secrets Best Practices
+| 🏷️ Best Practices                | 💡 Description                                                                                                                          |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 🌍 Using environment variables    | 🚫 Avoid hardcoding secrets in `.tf` files<br><br>💻 Example:<br>`export AWS_ACCESS_KEY_ID=xxxx`<br>`export AWS_SECRET_ACCESS_KEY=xxxx` |
+| 📁 Using `.tfvars` + `.gitignore` | 📂 Store secrets in `.tfvars` files<br>🚫 Add them to `.gitignore` to avoid committing                                                  |
+| 🏦 Terraform Cloud / Vault        | 🔐 For better security, I Use tools like **HashiCorp Vault** for secure secret storage & dynamic access                                |
+| 🚫 Avoid printing secrets in logs | 🛡️ Use `sensitive = true` to hide values in `plan/apply` output                                                                        |
+| ☁️ Remote state encryption        | 🔒 Enable encryption for S3 backend + restrict access via IAM policies                                                                  |
 
 
 ## 🎯 Interview-Style Answer:
