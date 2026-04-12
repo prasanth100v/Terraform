@@ -11,7 +11,7 @@
 Let’s say you want to allow two ports — `80 and 443` — in a security group.
 
 ### ✍️ Without Dynamic Block (❌ `manual`)
-```
+```hcl
 resource "aws_security_group" "example" {
   name = "example-sg"
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "example" {
 
 
 ### ⚡ With a Dynamic Block (✅ easy and clean)
-```
+```hcl
 variable "allowed_ports" {
   default = [80, 443]
 }
@@ -69,7 +69,7 @@ resource "aws_security_group" "example" {
  * I use `for_each` when I need to `create multiple resources with unique values`, as it provides better control and stability compared to `count`."
 
 ### 📄 Example 
-```
+```hcl
 resource "aws_s3_bucket" "buckets" {
   for_each = {
     dev  = "dev-bucket"
@@ -135,37 +135,26 @@ resource "aws_s3_bucket" "buckets" {
 
 # 🚫 What is ignore_changes?
 
-In Terraform, when something changes outside Terraform, it will try to fix it during terraform plan and terraform apply. But sometimes, you don’t want Terraform to fix it.
-
-You want Terraform to ignore the change. That’s where ignore_changes helps.
-
-## 💡 Simple Meaning:  
-“Ignore this field if it changes outside Terraform.”
-
----
-
-## 🌍 Real-Life Example:
-
-Let’s say you have this EC2 instance. Now, someone (or another script) manually changes the Name tag ("MyServer") in the AWS Console to "ChangedManually".
-
-When you run: terraform plan  
-Terraform will say:  
-“Hey! This tag has changed. I want to fix it back to MyServer!”
-
-But you don’t want Terraform to care about this change.
-
----
+ * 🚀 Tells Terraform to ignore specific changes
+ * Let’s say you have this EC2 instance. Now, someone (or another `script`) manually changes the Name tag (`MyServer`) in the AWS Console to "ChangedManually".
+ * 🎯 When you run: `terraform plan `
+ * 🛠️ Terraform will say : `Hey! This tag has changed. I want to fix it back to MyServer!` , But you don’t want Terraform to care about this change.
+ * I use `ignore_changes` when I don’t want Terraform to react to small changes made outside Terraform — like someone changing a `tag manually` or a `system auto-updating` a value.
+ * This `avoids unnecessary changes` during `terraform apply`. 
 
 ## 🛠️ Solution: Use ignore_changes
-
+```hcl
 lifecycle {
-  ignore_changes = [tags]
+  ignore_changes = [tags]        # ✅ Ignore external changes 
 }
-
-Now, even if the tag is changed manually in AWS, Terraform will ignore it during plan/apply.
+```
+Now, even if the tag is changed manually in AWS, Terraform will ignore it during `plan/apply`.
 
 ---
 
-## 🎤 Very Simple Interview Answer:
+## 🏁 Final Summary
 
-“I use ignore_changes when I don’t want Terraform to react to small changes made outside Terraform — like someone changing a tag manually or a system auto-updating a value. This avoids unnecessary changes during terraform apply.”  
+ * ✨ Dynamic → Repeat nested blocks
+ * ✨ for_each → Loop resources
+ * ✨ Modules → Reuse code
+ * ✨ ignore_changes → Ignore drift
