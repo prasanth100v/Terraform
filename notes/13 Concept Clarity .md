@@ -17,7 +17,7 @@
 ---
 
 ## 📁 Project Structure:
-```yaml
+```hcl
 terraform-project/  
 ├── 📄 main.tf  
 ├── 📄 variables.tf  
