@@ -75,10 +75,10 @@ terraform-project/
 
 ### ⚙️ How it works:
 
- * You can switch like this:  `terraform workspace select dev` → `terraform apply  `
- * Terraform will store state in a file like:  `terraform.tfstate.d/dev/terraform.tfstate  `
- * Same for prod:  `terraform.tfstate.d/prod/terraform.tfstate  `
- * So yes, workspaces are within the same directory, but each one has its `own state`.
+ * 📋 You can switch like this:  `terraform workspace select dev` → `terraform apply  `
+ * 📋 Terraform will store state in a file like:  `terraform.tfstate.d/dev/terraform.tfstate  `
+ * 📋 Same for prod:  `terraform.tfstate.d/prod/terraform.tfstate  `
+ * 📋 So yes, workspaces are within the same directory, but each one has its `own state`.
 
 ### 🛠️ Workspace Commands (for managing multiple environments)
 ```
