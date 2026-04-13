@@ -29,14 +29,14 @@ terraform-aws-project/
 
 ## 🛠️ Step-by-Step Code
 
-# 📄 main.tf
+## 📄 main.tf
 ```hcl
 provider "aws" {                        #👉 Connects Terraform to AWS in the selected region.
   region = var.aws_region
 }
 ```
 
-# 1️⃣ VPC
+## 1️⃣ VPC
 ```hcl
 resource "aws_vpc" "main_vpc" {
   cidr_block           = var.vpc_cidr           # 👉 Creates a custom VPC.
@@ -49,7 +49,7 @@ resource "aws_vpc" "main_vpc" {
 }
 ```
 
-# 2️⃣ Subnet
+## 2️⃣ Subnet
 ```hcl
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.main_vpc.id              #👉 Creates a subnet inside the VPC.
@@ -63,7 +63,7 @@ resource "aws_subnet" "public_subnet" {
 }
 ```
 
-# 3️⃣ Internet Gateway
+## 3️⃣ Internet Gateway
 ```hcl
 resource "aws_internet_gateway" "igw" {               # 👉 Allows internet access for resources in the VPC.
   vpc_id = aws_vpc.main_vpc.id
@@ -74,7 +74,7 @@ resource "aws_internet_gateway" "igw" {               # 👉 Allows internet acc
 }
 ```
 
-# 4️⃣ Route Table
+## 4️⃣ Route Table
 ```hcl
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main_vpc.id
@@ -95,7 +95,7 @@ resource "aws_route_table_association" "public_assoc" {
 }
 ```
 
-# 5️⃣ Security Group
+## 5️⃣ Security Group
 ```hcl
 resource "aws_security_group" "web_sg" {
   name   = "web-sg"
@@ -128,7 +128,7 @@ resource "aws_security_group" "web_sg" {
 }
 ```
 
-# 6️⃣ EC2 Instance
+## 6️⃣ EC2 Instance
 ```hcl
 resource "aws_instance" "web_server" {
   ami                         = var.ami_id
@@ -146,7 +146,7 @@ resource "aws_instance" "web_server" {
 
 ---
 
-### 📄 variables.tf
+## 📄 variables.tf
  * Why Variables?
     * 👉 To make the project `reusable` and `flexible`.
   
