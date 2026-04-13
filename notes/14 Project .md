@@ -9,7 +9,7 @@
      * 🖥️ EC2 Instance with public IP
 
 ### 🛠️ How the Project Works
-```yaml
+```hcl
 VPC
  └── Public Subnet
       └── Route Table → Internet Gateway
