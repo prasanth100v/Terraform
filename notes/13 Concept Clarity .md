@@ -17,7 +17,7 @@
 ---
 
 ## 📁 Project Structure:
-```
+```yaml
 terraform-project/  
 ├── 📄 main.tf  
 ├── 📄 variables.tf  
@@ -81,7 +81,7 @@ terraform-project/
  * 📋 So yes, workspaces are within the same directory, but each one has its `own state`.
 
 ### 🛠️ Workspace Commands (for managing multiple environments)
-```
+```yaml
 terraform workspace list             # 📋 Lists all workspaces.  
 terraform workspace new              # ➕ Creates a new workspace.  
 terraform workspace select           # 🔄 Switches to a different workspace.  
@@ -89,7 +89,7 @@ terraform workspace select           # 🔄 Switches to a different workspace.
 
 ## 📁 Directory-Based (Preferred ⭐)
    * 👉 Separate folders per environment
-```
+```yaml
 /dev
 /staging
 /prod
@@ -100,7 +100,7 @@ terraform workspace select           # 🔄 Switches to a different workspace.
 ---
 
 ## 📦 State Management Commands
-```
+```yaml
 terraform state list                 #  📋  Lists all resources in the state file.  
 terraform state show <name>          #  🔍  Shows details of a specific resource in the state.  
 terraform state rm <name>            #  ❌  Removes a resource from state (without destroying it).  
