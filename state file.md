@@ -185,18 +185,6 @@ Only edit manually in emergency cases, and always:
  * terraform plan → shows what will change
  * terraform State → stores what already exists
 
-### 🔄 S3 Locking vs DynamoDB Locking (Terraform State)
-| 🧩 **Feature**                  | 📦 **S3 Native Locking** | 🗄️ **DynamoDB Locking** | 🧠 **Explanation**                           | 🎯 **Best For**                |
-| ------------------------------- | ------------------------ | ------------------------ | -------------------------------------------- | ------------------------------ |
-| ⚙️ **Setup Complexity**         | ✅ Simple                 | ❌ Extra setup required   | DynamoDB needs lock table creation           | Ease vs enterprise reliability |
-| ➕ **Extra AWS Service**         | ❌ No                     | ✅ Requires DynamoDB      | Separate locking mechanism                   | Advanced state protection      |
-| 🛡️ **Reliability**             | ⚠️ Good                  | 🔥 Very strong           | DynamoDB provides robust distributed locking | Team collaboration             |
-| 👥 **Concurrency Protection**   | Limited                  | ✅ Excellent              | Prevents simultaneous state modifications    | Large DevOps teams             |
-| 🚀 **Terraform Recommendation** | Basic/simple use         | ✅ Industry standard      | Common enterprise practice                   | Production environments        |
-| 💰 **Cost**                     | Lower                    | Slightly higher          | DynamoDB adds small extra cost               | Operational trade-off          |
-| 🏢 **Recommended For**          | 👥 Small teams          | 🏢 Large teams / production | Better scalability & safety                  | Enterprise IaC                 |
-
-
 ## 📌 Terraform State Commands – Explained (Table Format)
 | Command                            | Purpose               | What it Does                                          | When to Use                   |
 | ---------------------------------- | --------------------- | ----------------------------------------------------- | ----------------------------- |
@@ -210,13 +198,13 @@ Only edit manually in emergency cases, and always:
 | `terraform state show -json`       | JSON output           | Outputs resource in JSON format                       | Automation / scripting        |
 
 ## 🆚 DynamoDB Locking vs S3 Native Locking
-| Feature           | DynamoDB Locking | S3 Native Locking |
-| ----------------- | ---------------- | ----------------- |
-| Terraform version | Any              | **1.10+ only**    |
-| Extra AWS service | Yes              | ❌ No              |
-| Cost              | DynamoDB cost    | No extra cost     |
-| Setup complexity  | Higher           | Simple            |
-| Lock storage      | DynamoDB item    | S3 lock file      |
-| Reliability       | Very high        | Very high         |
-| Recommended now   | Legacy setups    | ✅ Preferred       |
-
+| 🧩 **Feature**                   | 🗄️ **DynamoDB Locking**  | 📦 **S3 Native Locking**    | 🧠 **Explanation**                                    | 🎯 **Recommendation**   |
+| -------------------------------- | ------------------------- | --------------------------- | ----------------------------------------------------- | ----------------------- |
+| ⚙️ **Terraform Version Support** | Any version               | ✅ Terraform `1.10+`         | Native locking introduced in newer Terraform versions | Modern setups           |
+| ➕ **Extra AWS Service**          | ✅ Requires DynamoDB       | ❌ No extra service          | Native locking works directly with S3                 | Simpler architecture    |
+| 💰 **Cost**                      | DynamoDB charges apply    | ✅ No extra cost             | Fewer AWS resources needed                            | Lower operational cost  |
+| ⚡ **Setup Complexity**           | Higher                    | ✅ Simple                    | No lock table management required                     | Faster setup            |
+| 🔒 **Lock Storage**              | DynamoDB item             | S3 lock file                | Different locking mechanisms                          | Internal implementation |
+| 🛡️ **Reliability**              | 🔥 Very high              | 🔥 Very high                | Both provide strong state protection                  | Production-ready        |
+| 🏢 **Recommended Today**         | Legacy/older environments | ✅ Preferred modern approach | Terraform moving toward native locking                | Future-proof            |
+| 👥 **Team Collaboration**        | Excellent                 | Excellent                   | Prevents concurrent state updates                     | Safe team operations    |
