@@ -1,6 +1,6 @@
 # 📦 Terraform install commands
 ## 🐧 Linux (Ubuntu / Debian)
-```
+```hcl
 sudo apt update
 sudo apt install -y gnupg software-properties-common
 
@@ -16,13 +16,13 @@ sudo apt install terraform
 ```
 
 ## 🐧 Linux (Amazon Linux 2 / RHEL / CentOS)
-```
+```hcl
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 sudo yum install terraform
 ```
 
 ✅ Verify:
-```
+```hcl
 terraform -version
 ```
