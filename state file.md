@@ -1,9 +1,9 @@
 # Terraform state file
-The Terraform state file (terraform.tfstate) is a JSON file that stores the current state of infrastructure managed by Terraform.
-> 👉 Terraform State is the brain of Terraform.
-Without the state file, Terraform: Cannot track existing resources
-State file stores:
-```
+ * The Terraform state file (terraform.tfstate) is a JSON file that stores the `current state of infrastructure` managed by Terraform.
+ * 👉 Terraform State is the brain of Terraform.
+ * Without the state file, Terraform: Cannot track existing resources
+ * State file stores:
+```hcl
 1. Resource IDs (EC2 ID, ALB ARN, etc.)
 2. Resource attributes
 3. Provider information
@@ -11,10 +11,11 @@ State file stores:
 5. Metadata
 6. Outputs
 ```
-⚠️ It may also store sensitive data like passwords or tokens.
+⚠️ It may also store sensitive data like `passwords `or `tokens`.
+
 ### Where is the Terraform state file stored?
-Two options:
-```
+* ⚡ Two options:
+```hcl
 👉 Local backend (default)
 👉 Production uses remote backend
 
@@ -23,8 +24,9 @@ remote backend allowing:
       2. State locking
       3. Disaster recovery
 ```
+
 ### What happens if the state file is deleted?
-Terraform loses track of existing resources.
+* ⚡ Terraform loses track of existing resources.
 ```
 Effects:
     1. terraform plan shows everything as new
@@ -34,14 +36,12 @@ Recovery options:
     1. Restore from S3 versioning
     2. terraform import
 ```
-## Store Terraform state remotely in AWS S3 (instead of local terraform.tfstate)
-## 🧱 STEP 1: Create an S3 bucket (for Terraform state)
-Why?
-
-> Terraform does NOT create the bucket for you. The bucket must exist before terraform init.
+## Store Terraform state remotely in AWS S3 (instead of local` terraform.tfstate`)
+## 🧱 STEP 1: Create an S3 bucket (for Terraform state) Why?
+ * ⚡ Terraform does NOT create the bucket for you. The bucket must exist before terraform init.
 
 ### Option A: Create via AWS Console
-```
+```hcl
 1. Open S3 → Create bucket
 2. Bucket name (must be globally unique): mycompany-terraform-state
 3. Region: us-east-1
@@ -50,40 +50,45 @@ Why?
 6. Default encryption: SSE-S3 (AES-256) ✅
 7. Create bucket
 ```
+
 ### Option B: Create via AWS CLI
-```
+```hcl
 aws s3api create-bucket \
   --bucket mycompany-terraform-state \
   --region us-east-1
 ```
+
 Enable versioning:
-```
+```hcl
 aws s3api put-bucket-versioning \
   --bucket mycompany-terraform-state \
   --versioning-configuration Status=Enabled
 ```
+
 ## 🧱 STEP 2: Configure AWS credentials (VERY IMPORTANT)
-> Terraform must be able to authenticate to AWS.
-Check credentials
-```
+* ⚡ Terraform must be able to authenticate to AWS.
+* Check credentials
+```hcl
 aws sts get-caller-identity
 ```
 > If this works → Terraform will also work ✅
+
 #### Example (aws configure):
-```
+```hcl
 aws configure
 AWS Access Key ID: ********
 AWS Secret Access Key: ********
 Region: us-east-1
 ```
-## 🧱 STEP 3: Create Terraform backend configuration
-🔐 What is S3 Native State Locking?
-S3 Native State Locking is a Terraform 1.10+ feature that allows Terraform to lock the state file directly in Amazon S3, without using DynamoDB.
-> It uses Amazon S3 Conditional Writes to ensure only one Terraform operation can modify the state at a time.
 
-> Before Terraform 1.10: 👉 S3 backend required DynamoDB for locking 👉 Extra AWS service to manage 👉 Extra cost & IAM permissions
-Create a file called backend.tf
-```
+## 🧱 STEP 3: Create Terraform backend configuration
+### 🔐 What is S3 Native State Locking?
+ * ⚡ S3 Native State Locking is a `Terraform 1.10+ feature` that allows Terraform to lock the state file directly in `Amazon S3`, without using DynamoDB.
+ * 🔑 It uses Amazon S3 Conditional Writes to ensure only one Terraform operation can modify the state at a time.
+ * 🔑 `Before Terraform 1.10` : 👉 S3 backend required DynamoDB for locking 👉 Extra AWS service to manage 👉 Extra cost & IAM permissions
+
+🛡️ Create a file called backend.tf
+```hcl
 terraform {
   backend "s3" {
     bucket       = "mycompany-terraform-state"          #S3 bucket where state is stored
@@ -94,9 +99,10 @@ terraform {
   }
 }
 ```
+
 ## 🧱 STEP 4: Create a simple Terraform resource (example)
 Create main.tf
-```
+```hcl
 provider "aws" {
   region = "us-east-1"
 }
@@ -111,50 +117,53 @@ resource "aws_s3_bucket" "example" {
 ```
 terraform init
 ```
+
 ### What happens internally:
-```
+```hcl
 1. Terraform reads backend.tf
 2. Connects to S3
 3. Creates backend configuration
 4. Creates remote state file
 5. If local state exists → asks to migrate
 ```
-You’ll see:
-> Successfully configured the backend "s3"!
+ * You’ll see:
+   * Successfully configured the backend "s3"!
+
 ## 🧱 STEP 6: Apply Terraform (state file is created here)
 Run:
-```
+```hcl
 terraform apply
 ```
-What happens now:
-```
-Terraform creates AWS resources
-Terraform writes state file : ✔ State file is now stored in AWS
-```
+ * What happens now:
+    * Terraform creates AWS resources
+    * Terraform writes state file : ✔ State file is now `stored in AWS`
+
 ## 🧱 STEP 7: Verify state file in S3
-```
+```hcl
 S3 → mycompany-terraform-state → dev/
 ```
-## 🧱 STEP 8: Understand state locking (use_lockfile = true)
+
+## 🧱 STEP 8: Understand state locking (`use_lockfile = true`)
 Why locking?
-```
+```hcl
 Prevents:
 1. Two engineers running terraform apply at same time
 2. State corruption
 ```
-# 🧱 Multi-environment structure (Best Practice)
-> Separate state files per environment
-```
+
+## 🧱 Multi-environment structure (Best Practice)
+* Separate state files per environment
+```hcl
 s3://mycompany-terraform-state/
 ├── dev/terraform.tfstate
 ├── qa/terraform.tfstate
 └── prod/terraform.tfstate
 ```
-Each environment = separate state = safer deployments
+ * Each environment = `separate state = safer deployments`
 
 ## Can we edit terraform.tfstate manually?
-> ❌ Not recommended
-```
+  * ❌ Not recommended
+```hcl
 Reasons:
    1. High risk of corruption
    2. Hard to debug
@@ -162,8 +171,9 @@ Only edit manually in emergency cases, and always:
    1. ✔ Take backup
    2. ✔ Validate after edit
 ```
+
 ### How do you secure the Terraform state file?
-```
+```hcl
 1. Store in remote backend
 2. Enable encryption
 3. Restrict IAM access
@@ -172,17 +182,19 @@ Only edit manually in emergency cases, and always:
 6. Never commit to Git
 ```
 
-> terraform plan → shows what will change
-
-> terraform State → stores what already exists
+ * terraform plan → shows what will change
+ * terraform State → stores what already exists
 
 ### 🔄 S3 Locking vs DynamoDB Locking (Terraform State)
-| 🧩 Feature          | 📦 S3 Native Locking | 🗄️ DynamoDB Locking   |
-| ------------------- | -------------------- | ---------------------- |
-| ⚙️ Setup Complexity | ✅ Simple             | ❌ Requires extra setup |
-| ➕ Extra Service     | ❌ No                 | ✅ Needs DynamoDB table |
-| 🛡️ Reliability     | ⚠️ Good              | 🔥 Very strong         |
-| 🎯 Recommended For  | 👥 Small teams       | 🏢 Large teams         |
+| 🧩 **Feature**                  | 📦 **S3 Native Locking** | 🗄️ **DynamoDB Locking** | 🧠 **Explanation**                           | 🎯 **Best For**                |
+| ------------------------------- | ------------------------ | ------------------------ | -------------------------------------------- | ------------------------------ |
+| ⚙️ **Setup Complexity**         | ✅ Simple                 | ❌ Extra setup required   | DynamoDB needs lock table creation           | Ease vs enterprise reliability |
+| ➕ **Extra AWS Service**         | ❌ No                     | ✅ Requires DynamoDB      | Separate locking mechanism                   | Advanced state protection      |
+| 🛡️ **Reliability**             | ⚠️ Good                  | 🔥 Very strong           | DynamoDB provides robust distributed locking | Team collaboration             |
+| 👥 **Concurrency Protection**   | Limited                  | ✅ Excellent              | Prevents simultaneous state modifications    | Large DevOps teams             |
+| 🚀 **Terraform Recommendation** | Basic/simple use         | ✅ Industry standard      | Common enterprise practice                   | Production environments        |
+| 💰 **Cost**                     | Lower                    | Slightly higher          | DynamoDB adds small extra cost               | Operational trade-off          |
+| 🏢 **Recommended For**          | 👥 Small teams          | 🏢 Large teams / production | Better scalability & safety                  | Enterprise IaC                 |
 
 
 ## 📌 Terraform State Commands – Explained (Table Format)
