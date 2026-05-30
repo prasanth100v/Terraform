@@ -113,7 +113,7 @@ lifecycle {
 The most secure and recommended approach is to configure your credentials using the AWS CLI:  
 
 1. 📥 First, install the AWS CLI if you haven't already:
-```
+```hcl
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"  
 unzip awscliv2.zip  
 sudo ./aws/install  
@@ -123,11 +123,11 @@ sudo ./aws/install
 
 `aws configure` 
 
- You'll be prompted to enter:  
-  * AWS Access Key ID  🔑
-  * AWS Secret Access Key  🔐
-  * Default region name 🌍
-  * Default output format  
+ * You'll be prompted to enter:  
+    * AWS `Access Key ID`  🔑
+    * AWS `Secret Access Key ` 🔐
+    * Default `region` name 🌍
+    * Default output format  
 
  * ✅ Terraform will automatically reads these credentials from :
    ```hcl
