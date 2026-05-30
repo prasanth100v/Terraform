@@ -1,14 +1,13 @@
 # 🧩 7. Modules
 ## 🚀 What is a Module?
- * ✨ A module is a collection of `.tf` files that performs a specific task (like creating a VPC or EC2) and can be reused in different places.
- * 💡 Module is a reusable package. Instead of writing the same code again and again you can write once and reuse it many times. 
+ * ✨ A module is a collection of `.tf` files that performs a specific task (like `creating a VPC` or `EC2`) and can be reused in different places.
+ * 💡 Module is a reusable package. Instead of writing the same code `again and again` you can write once and reuse it many times. 
 
 ### 📌 In Simple Words:
-- 🔁 A Module in Terraform is like a function in programming. 
-- 🎯 You can call it with different values.  
-- ⏱️ It saves time and avoids repeating the same code.
-- 📖 Modules Makes configuration more readable and modular. 
-
+ - 🔁 A Module in Terraform is like a `function in programming`. 
+ - 🎯 You can call it with different values.  
+ - ⏱️ It saves time and `avoids repeating the same code`.
+ - 📖 Modules Makes configuration `more readable` and `modular`. 
 
 ## 📁 Module Structure:
 ```hcl
@@ -58,10 +57,9 @@ module "eks" {
  
 
 ## 🎤 Answer in Interview:
- * In Terraform, I use modules to reuse code and organize my infrastructure. For example, I created an EC2 module with `AMI` and `instance type` as inputs.
- * I can use this module multiple times with different values in different environments like dev, test, and prod.
+ * In Terraform, I use modules to `reuse code` and organize my infrastructure. For example, I created an EC2 module with `AMI` and `instance type` as inputs.
+ * I can use this module multiple times with different values in different environments like `dev`, `test`, and `prod`.
  * Modules help make Terraform code cleaner and easier to manage.
-
 
 ✨ *Terraform Modules make Infrastructure as Code powerful, reusable, and easy to maintain.*
 
@@ -78,7 +76,6 @@ module "eks" {
  * 🛡️ Prevent accidental deletion
  * 🔄 Handle updates safely
  * ⚡ Avoid downtime
-
 
 ## 📌 Example:
 ## 🔑 Key Lifecycle Arguments
@@ -120,7 +117,7 @@ resource "aws_instance" "web" {
 ---
 
 ### 3. 🔄 create_before_destroy
- Tells Terraform to create a new resource before destroying the old one. It Prevents downtime during updates.
+ * Tells Terraform to create a new resource before destroying the old one. It Prevents downtime during updates.
 
 ```hcl
 resource "aws_instance" "web" {
@@ -141,20 +138,20 @@ resource "aws_instance" "web" {
 ---
 
 ## ⚙️ Lifecycle Customization
-- 🛡️ prevent_destroy, 🔄 create_before_destroy, and 🚫 ignore_changes help manage resource lifecycles more safely.
+  - 🛡️ prevent_destroy, 🔄 create_before_destroy, and 🚫 ignore_changes help manage resource lifecycles more safely.
 
 ### 🗣️ Interview Answer (Lifecycle)
    * I use lifecycle rules to control resource behavior.
-   * For example, I use prevent_destroy to protect critical resources, ignore_changes to avoid overwriting manual updates.
-   * And create_before_destroy to ensure zero downtime during updates.
+   * For example, I use `prevent_destroy to protect critical resources`, `ignore_changes` to avoid overwriting manual updates.
+   * And `create_before_destroy` to ensure `zero downtime` during updates.
 
 ---
 
 # 🗄️ 9. Backend
 ## 🚀 What is Backend?
  * ✨ A backend defines where Terraform stores its state file
- * By default, Terraform saves the state locally in a file called terraform.tfstate.
- * However, in a team or production environment, you use a remote backend to store the state file securely and allow team collaboration.
+ * By default, Terraform saves the state locally in a file called `terraform.tfstate`.
+ * However, in a team or production environment, you use a `remote backend` to store the state file securely and allow team collaboration.
  * `terraform.tfstate → Stored locally ❌ (not safe for teams)`
  * ☁️ Remote Backend (Best Practice ⭐) Store state in cloud (e.g., AWS S3)
 
@@ -170,19 +167,17 @@ terraform {
   }
 }
 ```
-
-🔁 You must run terraform init again after configuring or changing a backend.
+ * 🔁 You must run terraform init again after configuring or changing a backend.
 
 ---
 
 ## ❓ Why Use a Backend?
 
-- 👥 Collaboration –  Multiple people can work on the same infrastructure.  
-- 🔒 Locking       –  Prevents two people from changing the infrastructure at the same time.  
-- 🛡️ Security      –  Encrypt state files (e.g., S3 + KMS).  
+ - 👥 Collaboration –  Multiple people can work on the same infrastructure.  
+ - 🔒 Locking       –  Prevents two people from changing the infrastructure at the same time.  
+ - 🛡️ Security      –  Encrypt state files (e.g., `S3 + KMS`).  
 
 ## 🏁 Final Summary
-
- * ✨ Modules → Reusable building blocks
- * ✨ Lifecycle → Control resource behavior
- * ✨ Backend → Store & secure state
+  * ✨ Modules → Reusable building blocks
+  * ✨ Lifecycle → Control resource behavior
+  * ✨ Backend → Store & secure state
