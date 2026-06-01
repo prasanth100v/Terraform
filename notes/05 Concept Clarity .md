@@ -1,6 +1,6 @@
 # 🔗 Manage dependencies between resources in Terraform
 ## 🚀 How Terraform Handles Dependencies
-✨ Terraform automatically understands dependencies when you reference one resource inside another.
+ * ✨ Terraform automatically understands dependencies when you reference one resource inside another.
 
 ```hcl
 resource "aws_vpc" "main" {
@@ -18,8 +18,8 @@ resource "aws_subnet" "subnet1" {
 ---
 
 # 🌍 Managing Environments (Dev / Staging / Prod)
- * I manage environments using Terraform workspaces for lightweight setups and separate directories or modules for larger projects.
- * This allows me to separate configurations and state files across dev, staging, and production.
+  * I manage environments using `Terraform workspaces` for lightweight setups and separate directories or modules for larger projects.
+  * This allows me to separate configurations and state files across `dev`, `staging`, and `production`.
 
 ## 🚀 Approach 1
 ### 🧩 Workspace
@@ -43,10 +43,10 @@ terraform/
 
 ---
 
-# 🤝 Sharing Terraform State (Team Collaboration)
+# 🤝 Sharing Terraform State (`Team Collaboration`)
 ## 🚀 Use Remote Backend (S3)
- * To share Terraform state, I use a remote backend like `AWS S3` with `state locking` enabled.
- * This allows multiple team members to collaborate safely without overwriting each other's changes.
+  * To share Terraform state, I use a remote backend like `AWS S3` with `state locking` enabled.
+  * This allows multiple team members to collaborate safely without overwriting each other's changes.
 
 ```hcl
 terraform {
@@ -62,18 +62,16 @@ terraform {
 
 ### 🔐 Key Benefits
    * 👥 Shared state across team
-   * 🔒 State locking (prevents conflicts)
+   * 🔒 State locking (`prevents conflicts`)
    * 🛡️ Secure storage
 
 ---
 
 ## ⚠️ A resource was deleted manually from the AWS console. What will happen when you run terraform apply again?
- If a resource is deleted manually from AWS, Terraform will detect the drift the resource is missing (from state vs actual) and recreate it during the next plan/apply.
-
----
+  * If a resource is deleted manually from AWS, Terraform will detect the drift the resource is missing (from `state vs actual`) and recreate it during the `next plan/apply`.
 
 ## 🛡️ You want to prevent accidental deletion of a resource. How?
-I Use lifecycle block with `prevent_destroy` to protect critical resources from accidental deletion.
+  * I Use lifecycle block with `prevent_destroy` to protect critical resources from accidental deletion.
 
 ```hcl
 resource "aws_s3_bucket" "my_bucket" {
@@ -85,17 +83,13 @@ resource "aws_s3_bucket" "my_bucket" {
 }
 ```
 
----
-
 ## 🎯 How can you update only a specific resource without touching the rest?
   * Update Only One Resource Use the `-target` flag : `terraform apply -target=aws_instance.my_instance`
   * ⚠️ Note : 👉 Use carefully — `not recommended` for regular use
   * I can use the `-target flag` to apply changes to a specific resource, but I avoid using it frequently because it can bypass dependency checks.
 
----
-
 ## 🔁 How do you reuse Terraform modules with different parameters?
-  * I reuse modules by passing different input variables, allowing the same module to create different resources for different environments (Dev / Staging / Prod) .
+  * I reuse modules by passing different input variables, allowing the same module to create different resources for different environments (`Dev / Staging / Prod`) .
   * Use input variables when calling the module.
 
 ```hcl
@@ -110,15 +104,12 @@ module "vpc_prod" {                    # Prod VPC
 }
 ```
 
----
-
 # 🔐 Handling Secrets and Sensitive Data in Terraform
- * Managing sensitive data like passwords, API keys, and credentials securely is critical when working with Terraform.
- * Here are the best practices and methods for handling secrets properly:
+ * Managing sensitive data like `passwords`, `API keys`, and `credentials` securely is critical when working with Terraform.
+ * Here are the best practices and methods for handling secrets properly :
 
 ## ❌ 1. Never Store Secrets in Plaintext
- Avoid committing secrets directly in your Terraform code:
-
+  * Avoid committing secrets directly in your Terraform code:
 ```hcl
 resource "aws_db_instance" "example" {
   username = "admin"
@@ -130,11 +121,9 @@ resource "aws_db_instance" "example" {
   * Stored in state file
   * Risk of leaks
 
----
-
 ## ✅ 2. Best Practices:
 ### 🌱 A. Use Environment Variables
-Instead of hardcoding secrets, Terraform allows passing values securely using environment variables.
+ * Instead of hardcoding secrets, Terraform allows passing values securely using environment variables.
 
 ### 📌 Define a Sensitive Variable
 ```hcl
@@ -158,7 +147,7 @@ terraform apply
 ```
 
 ### 🔐 B. Secret Management Tools
-👉 Use : Amazon Web Services Secrets Manager or HashiCorp Vault 
+ * 👉 Use : Amazon Web Services Secrets Manager or HashiCorp Vault 
 
 ### 🔒 C. Secure Backend
-👉 Use : Encrypted S3 Backend with KMS encryption (Mark Variables as Sensitive), Restrict access with IAM
+ * 👉 Use : `Encrypted S3` Backend with KMS encryption (Mark Variables as Sensitive), Restrict access with IAM
