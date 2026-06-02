@@ -25,10 +25,8 @@ terraform-aws-project/
 ├── 📄 outputs.tf  
 ├── 📄 terraform.tfvars  
 ```
----
 
 ## 🛠️ Step-by-Step Code
-
 ## 📄 main.tf
 ```hcl
 provider "aws" {                        #👉 Connects Terraform to AWS in the selected region.
@@ -219,7 +217,6 @@ terraform apply
 ---
 
 # 🔗 What is a Resource Graph in Terraform?
-
  * Terraform creates a `resource graph` internally to understand dependencies between resources in our configuration..
  * This ensures resources are created, updated, or destroyed in the `correct order`.
  * I use terraform graph for `troubleshooting larger infrastructures` and visualize it with `Graphviz`.
@@ -229,24 +226,20 @@ terraform apply
      * It helps Terraform: `Troubleshoot dependency issues`
 
 ## 🧭 Steps to Generate the Resource Graph
-
- ```yaml
+ ```hcl
    terraform init                             # 1️⃣ Initialize Terraform 
-
    terraform graph > graph.dot                # 2️⃣ Generate the resource graph in DOT format file  
-
    sudo apt install graphviz                          # Make sure Graphviz is installed          
-
    dot -Tpng graph.dot -o graph.png           # 3️⃣ Convert the DOT file into an image using Graphviz 
 ```
-  👉 This creates a visual file `graph.png` .
+ * 👉 This creates a visual file `graph.png` .
 
 ---
 
 ## 🧩 How the Graph Looks (structure)
 
 👉 Visually, it shows this:
-```yaml
+```hcl
 provider[aws]  
    ↓  
 aws_vpc.main  
@@ -254,13 +247,12 @@ aws_vpc.main
 aws_subnet.public  
 ```
 ✨ It means:  
-   - aws_vpc.main is created first  
-   - aws_subnet.public depends on it
+   - `aws_vpc.main` is created first  
+   - `aws_subnet.public` depends on it
 
 ---
 
 🏁 Final Summary
-
  * ✨ VPC → Network boundary
  * ✨ Subnet → Place EC2
  * ✨ IGW + Route Table → `Internet access`
