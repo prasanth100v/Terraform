@@ -2,7 +2,7 @@
 ## How do you handle dependencies when one resource must wait for another?
 
  * Terraform automatically manages dependencies using resource references.
- * ✨ Terraform uses a built-in dependency graph to determine the correct order of execution. (`Implicit Dependency`)
+ * ✨ Terraform uses a `built-in dependency graph` to determine the correct order of execution. (`Implicit Dependency`)
  * If required, I use `depends_on` to define dependencies when they are not automatically detected.
  * ⚠️ Use Explicit Dependency (`depends_on`) : when Terraform cannot detect dependency.
 
@@ -21,7 +21,7 @@ resource "aws_instance" "web" {
 ```
 
 ## ⚠️ Explicit Dependency (depends_on) : 
- You can also use `depends_on`. 👉 when Terraform cannot detect dependency
+* You can also use `depends_on`. 👉 when Terraform cannot detect dependency
 ```hcl
 resource "aws_instance" "app" {
   depends_on = [aws_db_instance.mydb]         
@@ -31,11 +31,10 @@ resource "aws_instance" "app" {
 ---
 
 ## ⚠️ You accidentally deleted the .tfstate file. What should you do?
-
-- ☁️ If using a remote backend, download or restore from AWS S3 versioning. 
-- ⚠️ Without state, ❌ Terraform loses track of resources and may recreate all resources, causing duplicates or conflicts.  
-- 🔁 Use terraform import to bring existing resources back into state.
-- 🚫 Avoid manual recreation 
+ - ☁️ If using a remote backend, download or restore from AWS S3 versioning. 
+ - ⚠️ Without state, ❌ Terraform loses track of resources and may recreate all resources, causing duplicates or conflicts.  
+ - 🔁 Use terraform import to bring existing resources back into state.
+ - 🚫 Avoid manual recreation 
 
 ### 🗣️ Interview Answer :
    * If the state file is lost, I first restore it from remote backend backups like S3 versioning.
@@ -55,32 +54,28 @@ resource "aws_instance" "app" {
  │   ├── dev/
  │   └── prod/
 ```
-* For large projects, I use a modular structure with separate directories for environments.
-* 📦 Modules handle reusable components, and each environment passes different variables `.tfvars`.
-* 🎯 Approach : 📦 Modules → Reusable components, 🌍 Environments → Separate `configs + tfvars`
+ * For large projects, I use a modular structure with separate directories for environments.
+ * 📦 Modules handle reusable components, and each environment passes different variables `.tfvars`.
+ * 🎯 Approach : 📦 Modules → Reusable components, 🌍 Environments → Separate `configs + tfvars`
 
 ---
 
 ## 🔄 How can you import existing AWS resources into Terraform?
-
  * 🚀 Use terraform import Command : `terraform import aws_instance.my_ec2 i-0123456789abcdef0 `
  * 👉 Use Case When :
      * Resource already exists
      * Need to bring under Terraform
 
----
-
 ## ⏪ You want to roll back infrastructure changes. How do you do it?
-
- * 🚫 Terraform Limitation : ❌ Terraform doesn't support automatic rollback.
- * ✅ Solution
-    * 🧾 Use Git version-controlled `.tf` files.
-    * 🔙 Revert `.tf` files to the previous version
-    * ▶️ Run terraform apply
+  * 🚫 Terraform Limitation : ❌ Terraform doesn't support automatic rollback.
+  * ✅ Solution
+     * 🧾 Use Git version-controlled `.tf` files.
+     * 🔙 Revert `.tf` files to the previous version
+     * ▶️ Run terraform apply
 
 ### 🗣️ Interview Answer :
-  * Terraform doesn't support automatic rollback, so I rely on version control.
-  * I revert the configuration to a previous version and reapply it to restore infrastructure.
+   * Terraform doesn't support automatic rollback, so I rely on version control.
+   * I revert the configuration to a previous version and reapply it to restore infrastructure.
 
 ---
 
@@ -88,27 +83,24 @@ resource "aws_instance" "app" {
   * Terraform Registry is a public repository where I can find reusable modules and providers.
   * It helps speed up development by using pre-built infrastructure components.
   * A public repository of:  
-     * 📦 Modules (reusable Terraform code)
-     * 🔌 Providers (to interact with different platforms)  
+      * 📦 Modules (reusable Terraform code)
+      * 🔌 Providers (to interact with different platforms)  
   * 🔗 URL: https://registry.terraform.io  
 
----
 
 ## ❌ What happens if the Terraform state file is deleted?
-
-- ⚠️ Terraform loses track of resources.  
-- 🔁 It will recreate resources on next apply unless a new import or recovery is done.  
-- 💡 Solution: Use remote backend with versioning (e.g.,AWS S3 + locking).
-- Terraform detects changes by comparing the `desired configuration` with the `current state file`.
-- It then generates an `execution plan` showing what needs to be created, updated, or destroyed."
+  - ⚠️ Terraform loses track of resources.  
+  - 🔁 It will recreate resources on next apply unless a new import or recovery is done.  
+  - 💡 Solution: Use remote backend with versioning (e.g.,`AWS S3 + locking`).
+  - Terraform detects changes by comparing the `desired configuration` with the `current state file`.
+  - It then generates an `execution plan` showing what needs to be created, updated, or destroyed."
 
 ---
 
 # 🔐 Remote Backend & Locking
 ## 🚀 What is Remote Backend?
-
- * 👉 Stores state file remotely (e.g.,AWS S3)
- * 🔒 State Locking Prevents : Multiple users running `apply` at same time
+  * 👉 Stores state file remotely (e.g.,`AWS S3`)
+  * 🔒 State Locking Prevents : Multiple users running `apply` at same time
 
 ### ✅ Terraform S3 Backend with Native Locking :
 ```hcl
@@ -118,14 +110,14 @@ terraform {
     key          = "prod/terraform.tfstate"
     region       = "us-east-1"
 
-    use_lockfile = true                    # ✅ Enables S3 native locking  # S3 native locking is supported in newer Terraform versions.
+    use_lockfile = true                             # ✅ Enables S3 native locking  # S3 native locking is supported in newer Terraform versions.
     encrypt      = true
   }
 }
 ```
 
 ### 🗣️ Interview Answer
-  * Remote backends store Terraform state in a shared location like AWS S3, and using S3 native locking
+  * Remote backends store `Terraform state` in a shared location like `AWS S3`, and using `S3 native locking`..
   * Ensures that only one person can make changes at a time, preventing conflicts.
 
 ---
@@ -133,7 +125,7 @@ terraform {
 # ✅ What are some best practices in Terraform?
 ## 🚀 Key Best Practices
   * ☁️ Use remote state backend.
-     * 👉 Store state file in cloud (like AWS S3) instead of locally
+     * 👉 Store state file in cloud (like `AWS S3`) instead of locally
      * ✔️ Enables team collaboration & Prevents state loss and Improves security
   
   * 🔁 Use modules for reusable code.
@@ -158,18 +150,19 @@ terraform {
 ---
 
 ## 🏁 Final Summary
+| 🧩 **Concept**      | 📖 **Meaning**               | 🧠 **Detailed Explanation**                                                                 | 💡 **Example**            | 🎯 **Why Important**                  |
+| ------------------- | ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------- |
+| 🔗 **Dependencies** | Resource creation order      | Terraform automatically detects dependencies or uses `depends_on` for explicit dependencies | EC2 depends on VPC/Subnet | Ensures correct resource provisioning |
+| 📄 **State**        | Infrastructure tracking file | Stores mapping between Terraform code and real resources                                    | `terraform.tfstate`       | Critical for updates and destroys     |
+| 📦 **Modules**      | Reusable Terraform code      | Group resources into reusable components                                                    | VPC module, EC2 module    | Better organization and reusability   |
+| 🔐 **Security**     | Protect sensitive data       | Use IAM roles, Secrets Manager, sensitive variables                                         | Database password         | Prevent credential exposure           |
+| 🗄️ **Backend**     | State storage location       | Stores Terraform state locally or remotely                                                  | S3 Backend                | Team collaboration & reliability      |
 
- * ✨ Dependencies → Auto (or `depends_on`)
- * ✨ State → Critical for tracking
- * ✨ Modules → Organize large projects
- * ✨ Security → Protect secrets
- * ✨ Backend → Enable collaboration
 
 ### 🧠 One-Line Memory Trick
 | 🧩 Concept      | 💡 Meaning                                     |
-| --------------- | ---------------------------------------------- |
+| --------------- | ----------------------------------------------- |
 | 🔗 Dependencies | 📊 Order of resource creation                  |
 | 🧠 State        | 💾 Memory of infrastructure                    |
 | ☁️ Backend      | 🔒 Shared & remote state storage (team safety) |
-| 🔐 Secrets      | 🛡️ Always protect sensitive data              |
-
+| 🔐 Secrets      | 🛡️ Always protect sensitive data               |
