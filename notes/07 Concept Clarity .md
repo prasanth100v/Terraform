@@ -41,7 +41,7 @@ resource "aws_s3_bucket" "buckets" {
 ---
 
 ## 🧩 You have a module that needs to create different-sized EC2 instances in dev and prod. How would you achieve this?
- Use variables and terraform.tfvars files for each environment.
+ * Use variables and `terraform.tfvars` files for each environment.
 
 ### 📦 module call:
 ```hcl
@@ -74,8 +74,7 @@ instance_type = "t3.large"
 ---
 
 ## 🔗 How do you pass values from one module to another in Terraform?
-
-Use output in one module and input in another.
+ * Use output in one module and input in another.
 
 📦 Module A:
 ```hcl
@@ -91,7 +90,7 @@ module "vpc" {
 
 module "ec2" {
   source    = "./ec2"
-  subnet_id = module.vpc.subnet_id       # Module A → Output → Module B → Input
+  subnet_id = module.vpc.subnet_id               # Module A → Output → Module B → Input
 }
 ```
 ---
@@ -107,7 +106,7 @@ module "ec2" {
 ---
 
 ## 🏗️ How do you manage multiple AWS resources together using Terraform?
-💡 You can define multiple resources in `.tf files` or use `modules` for better structure for large setups.  
+ * 💡 You can define multiple resources in `.tf files` or use `modules` for better structure for large setups.  
 
 ### 📌 Example: Create EC2 + S3 in one file:
 ```hcl
@@ -125,11 +124,11 @@ resource "aws_s3_bucket" "bucket" {                   # AWS S3
 
 ## ✅ What are some best practices for using Terraform with AWS?
 
-| 🧩 Practice                     | 💡 Description                                                |
-| ------------------------------- | -------------------------------------------------------------- |
-| ☁️ Remote State (S3 + DynamoDB) | 🔒 Store state in S3 with locking for team safety            |
-| 🔁 Use Modules                  | ♻️ Reuse code for VPC, EC2, etc.                               |
-| 📁 Environment Variables        | 🌍 Separate configs per env (dev, prod)                       |
-| 🔐 Secrets Management           | 🛡️ Store secrets in AWS Secrets Manager                       |
-| 📊 Plan Before Apply            | 🔍 Always run `terraform plan` before apply  (verify changes) |
+| 🧩 Practice                     | 💡 Description                                                  |
+| ------------------------------- | ---------------------------------------------------------------- |
+| ☁️ Remote State (`S3 + DynamoDB`) | 🔒 Store state in S3 with locking for team safety             |
+| 🔁 Use Modules                  | ♻️ Reuse code for VPC, EC2, etc.                                |
+| 📁 Environment Variables        | 🌍 Separate configs per env (`dev, prod`)                       |
+| 🔐 Secrets Management           | 🛡️ Store secrets in `AWS Secrets Manager`                       |
+| 📊 Plan Before Apply            | 🔍 Always run `terraform plan` before apply  (`verify changes`) |
 
