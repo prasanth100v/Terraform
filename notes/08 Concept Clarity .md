@@ -1,9 +1,8 @@
 ## 🌐 How do you assign a public IP to an EC2 instance using Terraform?
-
-Set `associate_public_ip_address = true` inside the network interface.
+ * Set `associate_public_ip_address = true` inside the network interface.
 
 ### 📄 Example:
-```
+```hcl
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
@@ -20,11 +19,10 @@ resource "aws_instance" "web" {
 ---
 
 ## 🗄️ How do you create an RDS MySQL database using Terraform?
-
-Use `aws_db_instance`.
+ * Use `aws_db_instance`.
 
 ### 📄 Example:
-```
+```hcl
 resource "aws_db_instance" "mydb" {
   allocated_storage    = 20
   engine               = "mysql"
@@ -36,42 +34,35 @@ resource "aws_db_instance" "mydb" {
 }
 ```
 
----
-
 ## ☁️ Common AWS Services Managed with Terraform
-
-- 🖥️ EC2 – virtual machines  
-- 📦 S3 – object storage  
-- 🌐 VPC/Subnets – networking  
-- 🗄️ RDS – relational databases  
-- 🔐 IAM – permissions and policies  
-- 📊 CloudWatch – monitoring and logs  
-- 🚢 ECS/EKS – container services  
-- ⚖️ ALB/ELB – load balancers  
+  - 🖥️ EC2 – virtual machines  
+  - 📦 S3 – object storage  
+  - 🌐 VPC/Subnets – networking  
+  - 🗄️ RDS – relational databases  
+  - 🔐 IAM – permissions and policies  
+  - 📊 CloudWatch – monitoring and logs  
+  - 🚢 ECS/EKS – container services  
+  - ⚖️ ALB/ELB – load balancers  
 
 ---
 
 ## 🚀 How do you launch multiple EC2 instances at once using Terraform?
-
-Use `count`.
+ * Use `count`.
 
 ### 📄 Example:
-```
+```hcl
 resource "aws_instance" "web" {
-  count         = 3                              # 👉 Creates: web[0], web[1], web[2]
+  count         = 3                                     # 👉 Creates: web[0], web[1], web[2]
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
 }
 ```
 
----
-
 ## ⚖️ How do you provision a Load Balancer using Terraform?
-
-Use `aws_lb`, `aws_lb_target_group`, and `aws_lb_listener`.
+ * Use `aws_lb`, `aws_lb_target_group`, and `aws_lb_listener`.
 
 ### 📄 Example (Application Load Balancer):
-```
+```hcl
 resource "aws_lb" "my_alb" {
   name               = "my-app-lb"
   internal           = false
@@ -85,12 +76,11 @@ resource "aws_lb" "my_alb" {
 
 # ⚙️ user_data Block in Terraform
 ## 🚀 What is user_data?
-
  * ✨ The `user_data` block in Terraform is used to run a `shell script` automatically when an EC2 instance is launched.
  * It’s commonly used for tasks like `installing packages` 📦, `starting services ⚙️`, or `configuring the server` 🖥️.
 
 ### 📄 Example:
-```
+```hcl
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
@@ -115,7 +105,6 @@ resource "aws_instance" "web" {
 ---
 
 ## 🎯 Bonus: Tips for Answering Terraform Questions in Interviews
-
-- 💬 Mention real-world usage (e.g., "In my EKS project, I used remote state in `AWS S3` with `native S3 locking`..")  
-- 🧠 Explain why you chose `modules`, `backends`, or `certain strategies`.  
-- 🔐 Always emphasize best practices like `security`, `automation`, `state management`, and `reusability`.
+ - 💬 Mention real-world usage (e.g., "In my EKS project, I used remote state in `AWS S3` with `native S3 locking`..")  
+ - 🧠 Explain why you chose `modules`, `backends`, or `certain strategies`.  
+ - 🔐 Always emphasize best practices like `security`, `automation`, `state management`, and `reusability`.
