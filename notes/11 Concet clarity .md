@@ -1,24 +1,20 @@
 # 🎨 terraform fmt Command – Explained Clearly
-
- * 🚀 I use `terraform fmt` to ensure consistent formatting across Terraform configuration files (.tf and .tfvars)
+ * 🚀 I use `terraform fmt` to ensure consistent formatting across Terraform configuration files (`.tf` and `.tfvars`)
  * which improves readability and maintains code standards in teams.
  ### ⚙️ What it does:
    * 🧹 Fixes `indentation`
    * ➕ `Adds/removes` spaces as per Terraform style guide
    * 📄 Makes your `.tf files` clean and readable  
 
----
-
 # 🔄 What is terraform taint?
-
- * The `terraform taint command` marks a resource for `destruction and recreation` during the next `terraform apply`.
- * 💡 Think of it as saying : `"I want Terraform to replace this resource, even if the config hasn't changed."`
- * 📌 Sometimes, a resource (like an `EC2 instance`) is not broken but needs to be recreated — maybe because it was changed manually, is `out of sync`, or has an issue.
- * By using `terraform taint resource_name`, I tell Terraform to destroy and recreate that resource the next time `I apply`.
-    * 🧾 Syntax: terraform taint <resource_type.resource_name>
-    * Example: `terraform taint aws_instance.web`
-    * 🔄 This tells Terraform :  `"On the next apply, destroy and recreate aws_instance.web."`
-    * ✅ Then run: `terraform apply` Terraform will recreate that EC2 instance — even if nothing changed in the `.tf` code.
+  * The `terraform taint command` marks a resource for `destruction and recreation` during the next `terraform apply`.
+  * 💡 Think of it as saying : `"I want Terraform to replace this resource, even if the config hasn't changed."`
+  * 📌 Sometimes, a resource (like an `EC2 instance`) is not broken but needs to be recreated — maybe because it was changed manually, is `out of sync`, or has an issue.
+  * By using `terraform taint resource_name`, I tell Terraform to destroy and recreate that resource the next time `I apply`.
+     * 🧾 Syntax: terraform taint <resource_type.resource_name>
+     * Example: `terraform taint aws_instance.web`
+     * 🔄 This tells Terraform :  `"On the next apply, destroy and recreate aws_instance.web."`
+     * ✅ Then run: `terraform apply` Terraform will recreate that EC2 instance — even if nothing changed in the `.tf` code.
 
 ## ⚠️ Important Notes:
    * 📌 The taint mark is stored in the state file, not in the code.
@@ -35,7 +31,6 @@
 ---
 
 # 📥 What is terraform import?
-  
   * 👉 Brings existing resources under Terraform management
   * The terraform import command brings existing `cloud resources` (like an `EC2, S3, VPC,` etc.) into Terraform's `state file`
   * So Terraform can manage them without `re-creating`. It does not generate code, only `updates` the state.
@@ -51,8 +46,7 @@
 ---
 
 # 🔐 How do you manage secrets in Terraform securely?
-
-To manage secrets securely in Terraform, I follow best practices to avoid exposing sensitive data like `passwords`, `API keys`, or `credentials`.
+ * To manage secrets securely in Terraform, I follow best practices to avoid exposing sensitive data like `passwords`, `API keys`, or `credentials`.
 
 ### 🔐 Terraform Secrets Best Practices
 | 🏷️ Best Practices                | 💡 Description                                                                                                                          |
@@ -63,7 +57,6 @@ To manage secrets securely in Terraform, I follow best practices to avoid exposi
 | 🚫 Avoid printing secrets in logs | 🛡️ Use `sensitive = true` to hide values in `plan/apply` output                                                                        |
 | ☁️ Remote state encryption        | 🔒 Enable encryption for S3 backend + restrict access via IAM policies                                                                  |
 
-
 ## 🎯 Interview-Style Answer:
   * In my projects, I never hardcode secrets in Terraform files. I either use `environment variables` or `pull secrets` securely from HashiCorp Vault.
   * I also mark sensitive variables with `sensitive = true` to prevent them from appearing in `logs`.
@@ -72,11 +65,10 @@ To manage secrets securely in Terraform, I follow best practices to avoid exposi
 ---
 
 # 🔍 What is terraform show?
-
- * 🚀 The `terraform show` command displays the `current state of our infrastructure` from the Terraform `state file` (terraform.tfstate).
- * Use terraform show to inspect the `current state of infrastructure` and verify `what resources Terraform has created`.
- * It helps you see what resources `exist`, their `attributes`, and `current values`.
- * 🎯 Use Cases
+  * 🚀 The `terraform show` command displays the `current state of our infrastructure` from the Terraform `state file` (terraform.tfstate).
+  * Use terraform show to inspect the `current state of infrastructure` and verify `what resources Terraform has created`.
+  * It helps you see what resources `exist`, their `attributes`, and `current values`.
+  * 🎯 Use Cases
      * 🔍 Debugging
      * 📊 Reviewing deployed resources
      * 🔄 Inspecting state
@@ -89,4 +81,3 @@ To manage secrets securely in Terraform, I follow best practices to avoid exposi
  * ✨ import → Manage existing infra
  * ✨ show → Inspect state
  * ✨ secrets → Secure handling
-
